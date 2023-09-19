@@ -611,6 +611,12 @@ if the operation failed, then the response contains an error message. See below 
 GET <host>/api/v1/hierarchy/group/:group_id
 ```
 
+***OBS***: You can filter group members by job title or first name. You can specify the list of filters as query strings
+
+```
+GET <host>/api/v1/hierarchy/group/:group_id?first_name="Ninel"
+```
+
 - headers
 
 The request must contains authorization header
