@@ -1,0 +1,37 @@
+CREATE TABLE users_table(
+   id INTEGER NOT NULL AUTO_INCREMENT,
+   username VARCHAR(50) NOT NULL,
+   password VARCHAR(255) NOT NULL,
+   role INTEGER NOT NULL DEFAULT 0,
+   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+   PRIMARY KEY (id),
+   UNIQUE INDEX (username)
+);
+
+CREATE TABLE group_table(
+   id INTEGER NOT NULL AUTO_INCREMENT,
+   name VARCHAR(50) NOT NULL,
+   parent_id INTEGER DEFAULT NULL,
+   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+   updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE now(),
+   PRIMARY KEY (id),
+   CONSTRAINT FOREIGN KEY (parent_id) REFERENCES group_table(id) ON DELETE CASCADE
+);
+
+CREATE TABLE person_table(
+   id INTEGER NOT NULL AUTO_INCREMENT,
+   first_name VARCHAR(30) NOT NULL,
+   last_name VARCHAR(30) NOT NULL,
+   job VARCHAR(50) NOT NULL,
+   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+   updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE now(),
+   PRIMARY KEY (id)
+);
+
+CREATE TABLE group_person_table(
+   group_id INTEGER NOT NULL,
+   person_id INTEGER NOT NULL,
+   PRIMARY KEY(group_id,person_id),
+   CONSTRAINT FOREIGN KEY (group_id) REFERENCES group_table(id) ON DELETE CASCADE,
+   CONSTRAINT FOREIGN KEY (person_id) REFERENCES person_table(id) ON DELETE CASCADE
+);
